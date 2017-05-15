@@ -1,0 +1,2 @@
+comprimento: tamanho do relacionamento
+popularidade / raridade: contagem das relações encontradas
