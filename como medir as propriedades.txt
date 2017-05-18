@@ -1,2 +1,40 @@
 comprimento: tamanho do relacionamento
 popularidade / raridade: contagem das relações encontradas
+
+
+Query para achar o tipo do objeto
+
+PREFIX db: <http://dbpedia.org/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT ?type
+WHERE {
+  db:Gmail dbo:type ?type.
+}
+
+
+
+
+Query para achar objetos do mesmo tipo
+
+PREFIX db: <http://dbpedia.org/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT *
+WHERE {
+  ?subject dbo:type dbr:Webmail
+
+}
+
+
+Combinação das duas querys
+
+PREFIX db: <http://dbpedia.org/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT ?subject
+WHERE {
+  ?subject dbo:type ?type.
+   db:Gmail dbo:type ?type
+
+}

@@ -6,8 +6,8 @@ require_once('RelationFinder.php');
 $r = new RelationFinder();
 //$object1 = "db:Angela_Merkel";
 //$object2 = "db:Joachim_Sauer";
-$object1 = "db:Barack_Obama";
-$object2 = "db:Hillary_Rodham_Clinton";
+$object1 = "db:Google";
+$object2 = "db:Gmail";
 //$object2 = "db:Hillary_Rodham_Clinton";
 //$object1 = "a";
 //$object2 = "b";
@@ -22,6 +22,30 @@ $ignoredProperties = array(
 
 	);
 $avoidCycles = 2;
+
+$allrelations_object1 = "PREFIX db: <http://dbpedia.org/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT * WHERE {
+?subject?pf1  ".$object1."
+FILTER ((?pf1 != rdf:type ) &&
+(?pf1 != skos:subject ) &&
+(?pf1 != <http://dbpedia.org/property/wikiPageUsesTemplate> ) &&
+(?pf1 != <http://dbpedia.org/property/wordnet_type> )
+)
+}";
+
+$allrelations_object2  = "PREFIX db: <http://dbpedia.org/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT * WHERE {
+?subject?pf1  ".$object2."
+FILTER ((?pf1 != rdf:type ) &&
+(?pf1 != skos:subject ) &&
+(?pf1 != <http://dbpedia.org/property/wikiPageUsesTemplate> ) &&
+(?pf1 != <http://dbpedia.org/property/wordnet_type> )
+)
+}";
 
 $arr = $r->getQueries($object1, $object2, $maxDistance, $limit, $ignoredObjects, $ignoredProperties, $avoidCycles);
 //print_r($arr);
@@ -59,3 +83,5 @@ echo("Tamanho: ");
 echo(count($predicates[1]));
 echo"<br>";
 }
+echo "<br>";
+echo $r->executeSparqlQuery($allrelations_object1, "HTML");
