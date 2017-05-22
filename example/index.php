@@ -67,7 +67,58 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1>REINS</h1>
-                <object width="1200" height="800" data="RelFinder.swf"></object>
+                <a href = "index.php?first=Angela_Merkel&second=Hillary_Rodham_Clinton"> Angela Merkel e Hillary Clinton</a><br>
+                <a href = "index.php?first=Angela_Merkel&second=Joachim_Sauer"> Angela Merkel e seu marido</a><br>
+                <a href = "index.php?first=Barack_Obama&second=Hillary_Clinton"> Barack Obama e Hillary Clinton</a><br>
+                <form action = "index.php">
+                first: <input type="text" width ="30" name = "first" value = "Google"><br>
+                second: <input type="text" width ="30" name = "second" value = "Gmail"><br>
+
+                <input type="submit">
+                </form>
+
+                <?php
+
+                if(isset($_REQUEST['first']) && isset($_REQUEST['second'])) {
+
+                	include('RelationFinder.php');
+                	$first = 'http://dbpedia.org/resource/'.$_REQUEST['first'];
+                	$second = 'http://dbpedia.org/resource/'.$_REQUEST['second'];
+
+                	$rf = new RelationFinder();
+
+                	$maxDistance = 4;
+                  $limit = 10;
+                  $ignoredObjects=null;
+                  $ignoredProperties = array(
+                  	'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+                  	'http://www.w3.org/2004/02/skos/core#subject',
+                  	'http://dbpedia.org/property/wikiPageUsesTemplate',
+                  	'http://dbpedia.org/property/wordnet_type'
+                  	);
+                  $avoidCycles = 2;
+                	// get all queries we are interested in
+                	$queries = $rf->getQueries($first, $second, $maxDistance, 10, array(), array('http://www.w3.org/1999/02/22-rdf-syntax-ns#type','http://www.w3.org/2004/02/skos/core#subject'), true);
+                	//print_r($queries);
+                	//exit();
+                	// execute queries one by one
+                	for($distance = 1; $distance <= $maxDistance; $distance++) {
+                		echo '<b>Encontrando relacionamentos de distância '.$distance.'</b><br />';
+                		foreach($queries[$distance] as $query) {
+
+                			echo 'Executando a seguinte query:<br /><pre>'.htmlentities($query).'</pre><br/>';
+                			$startTime = microtime(true);
+                			$table = $rf->executeSparqlQuery($query, "HTML");
+
+                			$runTime = microtime(true) - $startTime;
+                			echo $table.'<br />';
+                			echo 'runtime: '.$runTime.' seconds<br /><br />';
+                		}
+                	}
+
+                }
+
+                ?>
             </div>
         </div>
     </div>

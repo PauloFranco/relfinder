@@ -84,4 +84,7 @@ echo(count($predicates[1]));
 echo"<br>";
 }
 echo "<br>";
-echo $r->executeSparqlQuery($allrelations_object1, "HTML");
+$totalrelationsobj1 = array();
+
+$totalrelationsobj1 = $r->executeSparqlQuery($allrelations_object1);
+var_dump($totalrelationsobj1);
