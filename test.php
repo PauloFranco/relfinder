@@ -47,6 +47,16 @@ FILTER ((?pf1 != rdf:type ) &&
 )
 }";
 
+$type_and_same_type ="PREFIX db: <http://dbpedia.org/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT ?subject
+WHERE {
+  ?subject dbo:type ?type.
+   db:Gmail dbo:type ?type
+
+}";
+
 $arr = $r->getQueries($object1, $object2, $maxDistance, $limit, $ignoredObjects, $ignoredProperties, $avoidCycles);
 //print_r($arr);
 $results_arr = array();
@@ -84,7 +94,14 @@ echo(count($predicates[1]));
 echo"<br>";
 }
 echo "<br>";
-$totalrelationsobj1 = array();
 
-$totalrelationsobj1 = $r->executeSparqlQuery($allrelations_object1);
-var_dump($totalrelationsobj1);
+$totalrelationsobj1 = array();
+$subjects = array();
+$totalrelationsobj1 = $r->executeSparqlQuery($type_and_same_type);
+preg_match_all('/resource\/(\S+)"/',$totalrelationsobj1, $subjects,PREG_PATTERN_ORDER);
+echo "Lista de sujeitos do mesmo tipo do Gmail:";
+echo "<br>";
+foreach ($subjects[1] as $nome){
+	echo $nome;
+	echo "<br>";
+}
