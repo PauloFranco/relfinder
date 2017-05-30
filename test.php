@@ -11,7 +11,7 @@ $object2 = "db:Gmail";
 //$object2 = "db:Hillary_Rodham_Clinton";
 //$object1 = "a";
 //$object2 = "b";
-$maxDistance = 3;
+$maxDistance = 2;
 $limit = 10;
 $ignoredObjects=null;
 $ignoredProperties = array(
@@ -53,7 +53,7 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 SELECT ?subject
 WHERE {
   ?subject dbo:type ?type.
-   db:Gmail dbo:type ?type
+   db:Google dbo:type ?type
 
 }";
 
