@@ -101,6 +101,7 @@ $totalrelationsobj1 = array();
 $subjects = array();
 $totalrelationsobj1 = $r->executeSparqlQuery($type_and_same_type);
 preg_match_all('/resource\/(\S+)"/',$totalrelationsobj1, $subjects,PREG_PATTERN_ORDER);
+echo '<div class="container">';
 echo "<pre>";
 echo "Lista de sujeitos do mesmo tipo do Gmail:";
 echo "<br>";
@@ -114,7 +115,7 @@ foreach ($subjects[1] as $nome){
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         SELECT * WHERE {
-        ?subject?pf1  <http://dbpedia.org/resource/".$nome.">
+        ?subject ?pf1  <http://dbpedia.org/resource/".$nome.">
         FILTER ((?pf1 != rdf:type ) &&
         (?pf1 != skos:subject ) &&
         (?pf1 != <http://dbpedia.org/property/wikiPageUsesTemplate> ) &&
@@ -139,3 +140,4 @@ foreach ($subjects[1] as $nome){
 echo "maior: ".$maior_nome." com ".$maior." relações";
 echo "<br>";
 echo "</pre>";
+echo "</div>";
