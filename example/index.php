@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>REINS</title>
+    <title>QuizaRd</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -40,7 +40,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">
-                    <img src="http://placehold.it/150x50&text=REINS" alt="">
+                    <img src="http://placehold.it/150x50&text=QuizaRd" alt="">
                 </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -66,13 +66,13 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h1>REINS</h1>
-                <a href = "index.php?first=Angela_Merkel&second=Hillary_Rodham_Clinton"> Angela Merkel e Hillary Clinton</a><br>
+                <h1>QuizaRd</h1>
+                <!--<a href = "index.php?first=Angela_Merkel&second=Hillary_Rodham_Clinton"> Angela Merkel e Hillary Clinton</a><br>
                 <a href = "index.php?first=Angela_Merkel&second=Joachim_Sauer"> Angela Merkel e seu marido</a><br>
-                <a href = "index.php?first=Barack_Obama&second=Hillary_Clinton"> Barack Obama e Hillary Clinton</a><br>
+                <a href = "index.php?first=Barack_Obama&second=Hillary_Clinton"> Barack Obama e Hillary Clinton</a><br> -->
                 <form action = "index.php">
-                first: <input type="text" width ="30" name = "first" value = "Google"><br>
-                second: <input type="text" width ="30" name = "second" value = "Gmail"><br>
+                Primeiro: <input type="text" width ="30" name = "first" value = "Google"><br>
+                Segundo: <input type="text" width ="30" name = "second" value = "Gmail"><br>
 
                 <input type="submit">
                 </form>
