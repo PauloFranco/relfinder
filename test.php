@@ -50,15 +50,22 @@ FILTER ((?pf1 != rdf:type ) &&
 )
 }";
 
-$type_and_same_type ="PREFIX db: <http://dbpedia.org/resource/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-SELECT ?subject
-WHERE {
-  ?subject dbo:type ?type.
-   <"+$vars+"> dbo:type ?type
 
-}";
+function type_and_same_type($name){
+	$type_and_same_type ="PREFIX db: <http://dbpedia.org/resource/>
+	PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+	PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+	SELECT ?subject
+	WHERE {
+	  ?subject dbo:type ?type.
+	   <".$name."> dbo:type ?type
+
+	}";
+
+	return $type_and_same_type;
+
+}
+
 
 $arr = $r->getQueries($object1, $object2, $maxDistance, $limit, $ignoredObjects, $ignoredProperties, $avoidCycles);
 //print_r($arr);
@@ -84,11 +91,11 @@ foreach($results_arr as $result){
 		preg_match('/"vars":\s\[(\S+\s?\S+)+\]/', $result, $connectors[]);
 
 		if(preg_match('/"o\w+"/',$result)){
-	 		preg_match_all('/o\S+\s{\s\S+\s\S+\s\S+\s(\S+)/',$result, $regexed_objects[]);
+	 		preg_match('/o\S+\s{\s\S+\s\S+\s\S+\s(\S+)/',$result, $regexed_objects[]);
 		}
 
 		if (preg_match('/"middle"/',$result)){
-			preg_match_all('/middle\S+\s{\s\S+\s\S+\s\S+\s(\S+)/',$result, $regexed_objects[]);
+			preg_match('/middle\S+\s{\s\S+\s\S+\s\S+\s(\S+)/',$result, $regexed_objects[]);
 		}
 
 	}else{
@@ -128,7 +135,8 @@ echo "<br>";
 
 $totalrelationsobj1 = array();
 $subjects = array();
-$totalrelationsobj1 = $r->executeSparqlQuery($type_and_same_type);
+$type_and_same_type_query = type_and_same_type("http://dbpedia.org/resource/Gmail");
+$totalrelationsobj1 = $r->executeSparqlQuery($type_and_same_type_query);
 preg_match_all('/resource\/(\S+)"/',$totalrelationsobj1, $subjects,PREG_PATTERN_ORDER);
 
 echo '<pre>';
