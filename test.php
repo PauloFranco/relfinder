@@ -56,7 +56,7 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 SELECT ?subject
 WHERE {
   ?subject dbo:type ?type.
-   db:Gmail dbo:type ?type
+   <"+$vars+"> dbo:type ?type
 
 }";
 
@@ -71,31 +71,59 @@ foreach ($arr as $distance){
 		$results_arr[] = $r->executeSparqlQuery($query);
 		echo "<br>needed ".(microtime(true)-$now)." seconds<br>";
 	}
-	}
-$regex = array();
+}
+$connectors = array();
+$regexed_objects = array();
+$objects = array();
 foreach($results_arr as $result){
 	var_dump ($result);
 	echo "<br>";
 	if(preg_match('/"value"/',$result)){
-		echo "encontrei resultados ";
-		echo "<br>";
-		preg_match('/"vars":\s\[(\S+\s?\S+)+\]/', $result, $regex[]);
+		//echo "encontrei resultados ";
+		//echo "<br>";
+		preg_match('/"vars":\s\[(\S+\s?\S+)+\]/', $result, $connectors[]);
+
+		if(preg_match('/"o\w+"/',$result)){
+	 		preg_match_all('/o\S+\s{\s\S+\s\S+\s\S+\s(\S+)/',$result, $regexed_objects[]);
+		}
+
+		if (preg_match('/"middle"/',$result)){
+			preg_match_all('/middle\S+\s{\s\S+\s\S+\s\S+\s(\S+)/',$result, $regexed_objects[]);
+		}
+
 	}else{
-		echo "não encontrei resultados";
-		echo "<br>";
+		//echo "não encontrei resultados";
+		//echo "<br>";
 	}
 }
+echo "Esses são todos os Objetos em todas as relações:";
+foreach($regexed_objects as $object_name){
+	echo "<br>";
+	echo "<pre>";
+	var_dump($regexed_objects);
+	echo "</pre>";
+	//$objects[$object_name] = 'hello';
+}
+
+
+echo "<br>";
+echo "<hr>";
+echo "<pre>";
+echo "Tamanho das relações:";
 echo "<br>";
 echo "<br>";
 $predicates = array();
-foreach($regex as $vars){
+foreach($connectors as $vars){
+
+
 	preg_match_all('/(p\w+)+/',$vars[0], $predicates,PREG_PATTERN_ORDER);
-var_dump($vars);
-echo "<br>";
-echo("Tamanho: ");
-echo(count($predicates[1]));
-echo"<br>";
+	var_dump($vars);
+	echo("Tamanho: ");
+	echo(count($predicates[1]));
+	echo "<br>";
+	echo "<br>";
 }
+echo "</pre>";
 echo "<br>";
 
 $totalrelationsobj1 = array();
@@ -116,7 +144,7 @@ foreach ($subjects[1] as $nome){
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         SELECT ?subject SAMPLE(?pf1) WHERE {
-        <http://dbpedia.org/resource/".$nome."> ?pf1 ?subject 
+        <http://dbpedia.org/resource/".$nome."> ?pf1 ?subject
         FILTER ((?pf1 != rdf:type ) &&
         (?pf1 != skos:subject ) &&
         (?pf1 != <http://dbpedia.org/property/wikiPageUsesTemplate> ) &&
@@ -144,4 +172,3 @@ echo "<br>";
 echo "</pre>";
 
 ?>
-
