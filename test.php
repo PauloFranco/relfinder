@@ -170,7 +170,8 @@ foreach($objects as $object=>$value){
 	        FILTER ((?pf1 != rdf:type ) &&
 	        (?pf1 != skos:subject ) &&
 	        (?pf1 != <http://dbpedia.org/property/wikiPageUsesTemplate> ) &&
-	        (?pf1 != <http://dbpedia.org/property/wordnet_type> )
+	        (?pf1 != <http://dbpedia.org/property/wordnet_type> ) &&
+					(?pf1 != <http://dbpedia.org/ontology/wikiPageRedirects> )
 	        )
 	        }
 	        GROUP BY ?subject";
