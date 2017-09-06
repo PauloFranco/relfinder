@@ -141,19 +141,20 @@ echo "</pre>";
 echo "<br>";
 
 //$objects["http://dbpedia.org/resource/Google"] = 0;
-//$objects["http://dbpedia.org/resource/Gmail"] = 0;
+$objects["http://dbpedia.org/resource/Gmail"] = 0;
 
 foreach($objects as $object=>$value){
 	$totalrelationsobj1 = array();
 	$subjects = array();
 	$type_and_same_type_query = type_and_same_type($object);
 	$totalrelationsobj1 = $r->executeSparqlQuery($type_and_same_type_query);
-	preg_match_all('/\S+\/\/\S+\/(\S+)/',$totalrelationsobj1, $subjects,PREG_PATTERN_ORDER);
+	preg_match_all('/"(\S+\/\/\S+\/\S+)"/',$totalrelationsobj1, $subjects,PREG_PATTERN_ORDER);
 
-	var_dump(type_and_same_type($object));
+
 
 	echo '<pre>';
-	echo "Lista de sujeitos do mesmo tipo do ".$object;
+	echo "Lista de sujeitos do mesmo tipo do ".$object." :";
+	echo "<br>";
 	echo "<br>";
 	$relations = array();
 	$maior = 0;
@@ -165,7 +166,7 @@ foreach($objects as $object=>$value){
 	        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 	        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 	        SELECT ?subject SAMPLE(?pf1) WHERE {
-	        <".$nome."> ?pf1 ?subject
+	         ?subject ?pf1 <".$nome.">
 	        FILTER ((?pf1 != rdf:type ) &&
 	        (?pf1 != skos:subject ) &&
 	        (?pf1 != <http://dbpedia.org/property/wikiPageUsesTemplate> ) &&
@@ -176,7 +177,7 @@ foreach($objects as $object=>$value){
 	    $all_sizeone_relations = $r->executeSparqlQuery($all_relations_nome);
 	    preg_match_all('/resource\/(\S+)"/',$all_sizeone_relations, $relations,PREG_PATTERN_ORDER);
 	    echo $nome;
-		echo "<br>";
+			echo "<br>";
 		echo count($relations[1]);
 	    echo "<br>";
 		if(count($relations[1]) > $maior){
