@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.1/css/bulma.css">
 
 <?php
-
+ini_set('max_execution_time', 0);
 require_once('RelationFinder.php');
 
 
@@ -140,7 +140,7 @@ foreach($connectors as $vars){
 echo "</pre>";
 echo "<br>";
 
-//$objects["http://dbpedia.org/resource/Google"] = 0;
+$objects["http://dbpedia.org/resource/Google"] = 0;
 $objects["http://dbpedia.org/resource/Gmail"] = 0;
 
 foreach($objects as $object=>$value){
