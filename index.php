@@ -43,6 +43,8 @@
 	require_once('RelationFinder.php');
 	require_once('Type.php');
 	require_once('AllRelations.php');
+	require_once('AllObjects.php');
+	require_once('RelationSize.php');
 
 
 	$r = new RelationFinder();
@@ -68,78 +70,47 @@
 	<div class="container content">
 <?php
 	$results_arr = array();
+	$predicates = array();
+	$all_objects = array();
+	
 	foreach ($arr as $distance){
 		foreach ($distance as $query){
+			$regexed_objects = array();
+			$objects = array();
+			$connectors = array();
 			$now = microtime(true);
 			echo "<pre>";
 			echo "<xmp>".$query."</xmp>";
 			echo $r->executeSparqlQuery($query, "HTML");
-			$results_arr[] = $r->executeSparqlQuery($query);
+			$result = $r->executeSparqlQuery($query);
 			echo "<br>needed ".(microtime(true)-$now)." seconds<br>";
-			echo "</pre>";
-		}
-	}
-	$connectors = array();
-	$regexed_objects = array();
-	$objects = array();
-	foreach($results_arr as $result){
-		//var_dump ($result);
-		echo "<br>";
-		if(preg_match('/"value"/',$result)){
-			//echo "encontrei resultados ";
-			//echo "<br>";
-			preg_match('/"vars":\s\[(\S+\s?\S+)+\]/', $result, $connectors[]);
+			if(preg_match('/"value"/',$result)){
+				preg_match('/"vars":\s\[(\S+\s?\S+)+\]/', $result, $connectors[]);
 
-			if(preg_match('/"o[f|s]\w+"/',$result)){
-		 		preg_match_all('/o\S+\s{\s\S+\s\S+\s\S+\s"(\S+)"/',$result, $regexed_objects[]);
+				if(preg_match('/"o[f|s]\w+"/',$result)){
+			 		preg_match_all('/o\S+\s{\s\S+\s\S+\s\S+\s"(\S+)"/',$result, $regexed_objects[]);
+				}
+
+				if (preg_match('/"middle"/',$result)){
+					preg_match_all('/middle\S+\s{\s\S+\s\S+\s\S+\s"(\S+)"/',$result, $regexed_objects[]);
+				}
+			}
+			if(!empty($regexed_objects)){
+				allObjects(end($regexed_objects), $objects, $all_objects);
+				
 			}
 
-			if (preg_match('/"middle"/',$result)){
-				preg_match_all('/middle\S+\s{\s\S+\s\S+\s\S+\s"(\S+)"/',$result, $regexed_objects[]);
+			if(!empty($connectors)){
+				relationSize($connectors);
 			}
-
-
-
-		}else{
-			//echo "não encontrei resultados";
-			//echo "<br>";
+				echo "</pre>"; 
 		}
 	}
-	foreach($regexed_objects as $object_name){
-		foreach($object_name[1] as $name){
-			$objects[$name] = $name;
-		}
-	}
-	array_unique($objects);
-	echo "<pre>";
-	echo "Esses são todos os Objetos em todas as relações:";
-	echo "<br>";
-	var_dump($objects);
-	echo "</pre>";
-	echo "<br>";
-
-	echo "<br>";
-	echo "<hr>";
-	echo "<pre>";
-	echo "Tamanho das relações:";
-	echo "<br>";
-	echo "<br>";
-	$predicates = array();
-	foreach($connectors as $vars){
-		preg_match_all('/(p\w+)+/',$vars[0], $predicates,PREG_PATTERN_ORDER);
-		var_dump($vars[0]);
-		echo("Tamanho: ");
-		echo(count($predicates[1]));
-		echo "<br>";
-		echo "<br>";
-	}
-	echo "</pre>";
-	echo "<br>";
 
 	//$objects["http://dbpedia.org/resource/Google"] = 0;
-	$objects["http://dbpedia.org/resource/Gmail"] = 0;
+	$all_objects["http://dbpedia.org/resource/Gmail"] = 0;
 
-	foreach($objects as $object=>$value){
+	foreach($all_objects as $object=>$value){
 		$totalrelationsobj1 = array();
 		$subjects = array();
 		$totalrelationsobj1 = $r->executeSparqlQuery(sameType($object));
