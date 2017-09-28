@@ -42,6 +42,7 @@
 	ini_set('max_execution_time', 0);
 	require_once('RelationFinder.php');
 	require_once('Type.php');
+	require_once('TypeQuery.php');
 	require_once('AllRelations.php');
 	require_once('AllObjects.php');
 	require_once('RelationSize.php');
@@ -71,7 +72,6 @@
 <?php
 	$results_arr = array();
 	$predicates = array();
-	$all_objects = array();
 	
 	foreach ($arr as $distance){
 		foreach ($distance as $query){
@@ -96,59 +96,24 @@
 				}
 			}
 			if(!empty($regexed_objects)){
-				allObjects(end($regexed_objects), $objects, $all_objects);
-				
+				allObjects(end($regexed_objects), $objects);
 			}
 
 			if(!empty($connectors)){
 				relationSize($connectors);
 			}
-				echo "</pre>"; 
+
+			
+			if(!empty($objects)){
+				//$objects["http://dbpedia.org/resource/Google"] = 0;
+				$objects["http://dbpedia.org/resource/Gmail"] = 0;
+				sameType($objects, $r);	
+				unset($objects);
+			}
+			echo "</pre>"; 
 		}
 	}
 
-	//$objects["http://dbpedia.org/resource/Google"] = 0;
-	$all_objects["http://dbpedia.org/resource/Gmail"] = 0;
-
-	foreach($all_objects as $object=>$value){
-		$totalrelationsobj1 = array();
-		$subjects = array();
-		$totalrelationsobj1 = $r->executeSparqlQuery(sameType($object));
-		preg_match_all('/"(\S+\/\/\S+\/\S+)"/',$totalrelationsobj1, $subjects,PREG_PATTERN_ORDER);
-
-
-
-		echo '<pre>';
-		echo "Lista de sujeitos do mesmo tipo do ".$object." :";
-		echo "<br>";
-		echo "<br>";
-		$relations = array();
-		$maior = 0;
-		$maior_nome = "";
-		foreach ($subjects[1] as $nome){
-		    $all_sizeone_relations = array();
-		    $relations = array();
-		    $all_relations_nome  = allRelations($nome);
-		    $all_sizeone_relations = $r->executeSparqlQuery($all_relations_nome);
-		    preg_match_all('/resource\/(\S+)"/',$all_sizeone_relations, $relations,PREG_PATTERN_ORDER);
-		    echo $nome;
-				echo "<br>";
-			echo count($relations[1]);
-		    echo "<br>";
-			if(count($relations[1]) > $maior){
-			    $maior = count($relations[1]);
-			    $maior_nome = $nome;
-		    }
-
-		    var_dump($relations[1]);
-		    echo "<br>";
-
-		}
-		echo "maior: ".$maior_nome." com ".$maior." relações";
-		echo "<br>";
-		echo "</pre>";
-		echo "<br>";
-	}
 
 ?>
 	</div>

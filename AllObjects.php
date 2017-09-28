@@ -1,8 +1,7 @@
 <?php
-	function allObjects($regexed_objects, &$objects, &$all_objects){
+	function allObjects($regexed_objects, &$objects){
 		foreach($regexed_objects[1] as $name){
 			$objects[$name] = $name;
-			$all_objects[$name] = $name;
 		}
 	
 		array_unique($objects);
