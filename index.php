@@ -63,27 +63,31 @@
 		'http://dbpedia.org/property/wordnet_type'
 
 		);
-	$avoidCycles = 2;
+ 	$avoidCycles = 2;
 
 	$arr = $r->getQueries($object1, $object2, $maxDistance, $limit, $ignoredObjects, $ignoredProperties, $avoidCycles);
 	//print_r($arr);
 ?>
-	<div class="container content">
+    <div class="container content">
+
+
 <?php
 	$results_arr = array();
 	$predicates = array();
-	
+
 	foreach ($arr as $distance){
 		foreach ($distance as $query){
 			$regexed_objects = array();
 			$objects = array();
 			$connectors = array();
 			$now = microtime(true);
-			echo "<pre>";
+            echo '<div class="columns is-multiline"> <div class="column">';
+		//	echo "<pre>";
 			echo "<xmp>".$query."</xmp>";
 			echo $r->executeSparqlQuery($query, "HTML");
 			$result = $r->executeSparqlQuery($query);
 			echo "<br>needed ".(microtime(true)-$now)." seconds<br>";
+
 			if(preg_match('/"value"/',$result)){
 				preg_match('/"vars":\s\[(\S+\s?\S+)+\]/', $result, $connectors[]);
 
@@ -95,6 +99,7 @@
 					preg_match_all('/middle\S+\s{\s\S+\s\S+\s\S+\s"(\S+)"/',$result, $regexed_objects[]);
 				}
 			}
+
 			if(!empty($regexed_objects)){
 				allObjects(end($regexed_objects), $objects);
 			}
@@ -103,18 +108,17 @@
 				relationSize($connectors);
 			}
 
-			
+
 			if(!empty($objects)){
 				//$objects["http://dbpedia.org/resource/Google"] = 0;
 				$objects["http://dbpedia.org/resource/Gmail"] = 0;
-				sameType($objects, $r);	
+				sameType($objects, $r);
 				unset($objects);
 			}
-			echo "</pre>"; 
+			//echo "</pre>";
+            echo '</div></div>';
 		}
 	}
-
-
 ?>
 	</div>
 </section>
