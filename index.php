@@ -74,6 +74,7 @@
 <?php
 	$results_arr = array();
 	$predicates = array();
+	$exploded_result = array();
 
 	foreach ($arr as $distance){
 		foreach ($distance as $query){
@@ -86,6 +87,10 @@
 			echo "<xmp>".$query."</xmp>";
 			echo $r->executeSparqlQuery($query, "HTML");
 			$result = $r->executeSparqlQuery($query);
+			echo"<br>";
+			$exploded_result = explode("}}", $result);
+			print_r($exploded_result);
+			echo"</br>";
 			echo "<br>needed ".(microtime(true)-$now)." seconds<br>";
 
 			if(preg_match('/"value"/',$result)){
