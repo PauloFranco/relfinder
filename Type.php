@@ -40,7 +40,7 @@
 		echo "<br>";
 	}
 
-
+	unset($objects);
  }
 
 
