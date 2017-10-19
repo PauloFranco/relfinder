@@ -6,34 +6,34 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
  	<title>Relfinder</title>
  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.1/css/bulma.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.css">
 </head>
 <body>
-  <nav class="nav has-shadow" id="top">
+  <nav class="navbar is-transparent" id="top">
     <div class="container">
-      <div class="nav-left">
-        <a class="nav-item" href="../index.html">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="../index.html">
           <img src="../images/bulma.png" alt="Relfinder">
         </a>
       </div>
-      <span class="nav-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </span>
-      <div class="nav-right nav-menu">
-        <a class="nav-item is-tab is-active">
-          Home
-        </a>
-        <a class="nav-item is-tab">
-          Features
-        </a>
-        <a class="nav-item is-tab">
-          Team
-        </a>
-        <a class="nav-item is-tab">
-          Help
-        </a>
+
+      <div class="navbar menu">
+      	<div class="navbar-start">
+      	</div>
+      	<div class="navbar-end">
+	        <a class="navbar-item is-tab is-active">
+	          Home
+	        </a>
+	        <a class="navbar-item is-tab">
+	          Features
+	        </a>
+	        <a class="navbar-item is-tab">
+	          Team
+	        </a>
+	        <a class="navbar-item is-tab">
+	          Help
+	        </a>
+    	</div>
       </div>
     </div>
   </nav>
@@ -67,6 +67,8 @@
 
 	$arr = $r->getQueries($object1, $object2, $maxDistance, $limit, $ignoredObjects, $ignoredProperties, $avoidCycles);
 	//print_r($arr);
+	//
+			
 ?>
     <div class="container content">
 
@@ -75,6 +77,11 @@
 	$results_arr = array();
 	$predicates = array();
 	$exploded_result = array();
+
+	//$objects["http://dbpedia.org/resource/Google"] = 0;
+	//$objects["http://dbpedia.org/resource/Gmail"] = 0;
+	//sameType($objects, $r);
+	//unset($objects);
 
 	foreach ($arr as $distance){
 		foreach ($distance as $query){
@@ -124,7 +131,7 @@
 
 					if(!empty($objects)){
 						//$objects["http://dbpedia.org/resource/Google"] = 0;
-						$objects["http://dbpedia.org/resource/Gmail"] = 0;
+						//$objects["http://dbpedia.org/resource/Gmail"] = 0;
 						sameType($objects, $r);
 						unset($objects);
 					}
