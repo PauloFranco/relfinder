@@ -102,3 +102,35 @@ mean_vectors = []
 for cl in range(1,3):
     mean_vectors.append(np.mean(X[y==cl], axis=0))
     print('Mean Vector class %s: %s\n' %(cl, mean_vectors[cl-1]))
+
+
+cov_pos = np.cov(positivos, None, False)
+
+cov_neg = np.cov(negativos, None, False)
+
+cov_total = cov_pos + cov_neg
+
+cov_total2 = (cov_pos*len(positivos) + cov_neg*len(negativos))/(len(positivos)+len(negativos))
+
+
+inv_cov = np.linalg.inv(cov_total)
+
+inv_cov2 = np.linalg.inv(cov_total2)
+
+print inv_cov2
+
+
+mean_pos = np.mean(positivos, axis=0)
+
+mean_neg = np.mean(negativos, axis=0)
+
+mean_total = mean_neg - mean_pos
+
+w = np.matmul(inv_cov, mean_total)
+w2 = np.matmul(inv_cov2, mean_total)
+
+print "\n\n"
+print w
+print "\n\n"
+print w2
+
