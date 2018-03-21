@@ -1,0 +1,11 @@
+Wu: pesos
+X: características (distancia e porpularidade)
+n1 e n2 : quantidade de elementos em cada grupo (positivos e negativos)
+
+fazer busca (aumentar tamanho dos relacionamentos para ter + resultados [aprox 50])
+
+LDA seguindo vídeo
+
+--------------------
+
+Implementar algoritmo 1

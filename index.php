@@ -6,34 +6,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
  	<title>Relfinder</title>
  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css">
 </head>
 <body>
   <nav class="navbar is-transparent" id="top">
     <div class="container">
       <div class="navbar-brand">
-        <a class="navbar-item" href="../index.html">
-          <img src="../images/bulma.png" alt="Relfinder">
-        </a>
-      </div>
-
-      <div class="navbar menu">
-      	<div class="navbar-start">
-      	</div>
-      	<div class="navbar-end">
-	        <a class="navbar-item is-tab is-active">
-	          Home
-	        </a>
-	        <a class="navbar-item is-tab">
-	          Features
-	        </a>
-	        <a class="navbar-item is-tab">
-	          Team
-	        </a>
-	        <a class="navbar-item is-tab">
-	          Help
-	        </a>
-    	</div>
+        <a class="navbar-item is-active" href="../index.html">
+          Relfinder
+				</a>
       </div>
     </div>
   </nav>
@@ -53,7 +34,7 @@
 	$object1 = "db:Google";
 	$object2 = "db:Gmail";
 
-	$maxDistance = 4;
+	$maxDistance = 3;
 	$limit = 10;
 	$ignoredObjects=null;
 	$ignoredProperties = array(
@@ -67,10 +48,9 @@
 
 	$arr = $r->getQueries($object1, $object2, $maxDistance, $limit, $ignoredObjects, $ignoredProperties, $avoidCycles);
 	//print_r($arr);
-	//
 			
 ?>
-    <div class="container content">
+    
 
 
 <?php
@@ -89,7 +69,7 @@
 			$objects = array();
 			$connectors = array();
 			$now = microtime(true);
-            echo '<div class="columns is-multiline"> <div class="column">';
+            echo '<div class="container content"> <div class="columns is-multiline"> <div class="column">';
 		//	echo "<pre>";
 			echo "<xmp>".$query."</xmp>";
 			echo $r->executeSparqlQuery($query, "HTML");
@@ -135,16 +115,13 @@
 						sameType($objects, $r);
 						unset($objects);
 					}
-
-					echo '</div></div>';
-
 				}
 			}
-			echo"<hr>";
+			echo"</div></div><hr></div>";
 		}
 	}
 ?>
-	</div>
+
 </section>
 </body>
 </html>

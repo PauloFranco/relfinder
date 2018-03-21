@@ -1,0 +1,41 @@
+descriçao das metricas
+
+formulas de MAB
+
+explicar o rankbox após os fundamentos teóricos
+
+cronograma
+
+colocar slides da apresentaçao do problema pagina 12
+
+colocar siglas
+
+slide com lista de algoritmos que fazem ranking de relacionamentos (antes do rankbox)
+
+figura da página 36
+
+secretaria da pos - pegar documentos da banca
+
+=====/======/=======/=======/=======/========/=========/==========/
+
+
+comparar ambos os algoritmos com um algoritmo fixo (sem aprendizado) e ver a diferença dos desempenhos
+
+protocolo - ver documentos e passos necessários
+
+tamanho maior
+
+escolher domínio
+
+fazer hash do mesmo tipo do Google/Gmail
+
+Começar implementar Rankbox
+
+-Livro sobre LDA - Explicar e fazer comparativo com o que está no artigo e detalhar a implementação [1 semana]
+
+
+=====/======/=======/=======/=======/========/=========/==========/
+
+Comparar LDA com diferentes abordagens do LDA Incremental (essas variantes podem apresentar melhores resultados pois em geral elas apresentam em relação ao LDA comum)
+
+Relaçao entre vídeo do youtube e implementação e ANOTAR
