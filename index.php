@@ -34,7 +34,7 @@
 	$object1 = "db:Google";
 	$object2 = "db:Gmail";
 
-	$maxDistance = 3;
+	$maxDistance = 5;
 	$limit = 10;
 	$ignoredObjects=null;
 	$ignoredProperties = array(

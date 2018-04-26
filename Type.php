@@ -5,10 +5,8 @@
 		$subjects = array();
 		$totalrelationsobj1 = $r->executeSparqlQuery(sameTypeQuery($object));
 		preg_match_all('/"(\S+\/\/\S+\/\S+)"/',$totalrelationsobj1, $subjects,PREG_PATTERN_ORDER);
-
-
-
-		echo '<pre>';
+		echo "<br>";
+		echo "<br>";
 		echo "Lista de sujeitos do mesmo tipo do ".$object." :";
 		echo "<br>";
 		echo "<br>";
@@ -34,11 +32,17 @@
 		    echo "<br>";
 
 		}
-		echo "maior: ".$maior_nome." com ".$maior." relações";
-		echo "<br>";
-		echo "</pre>";
+		if(!empty($relations)){
+			echo "maior: ".$maior_nome." com ".$maior." relações";
+			echo "<br>";
+		}
+		else{
+			echo "Não foram encontrados objetos do mesmo tipo";
+			echo "<br>";
+		}
 		echo "<br>";
 	}
+	echo "</pre>";
 
 	unset($objects);
  }
