@@ -5,5 +5,7 @@
 		echo(count($predicates[1]));
 		echo "</pre>";
 		echo "<br>";
+
+		return count($predicates[1]);
 	}
 ?>

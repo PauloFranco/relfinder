@@ -57,11 +57,13 @@
 	$results_arr = array();
 	$predicates = array();
 	$exploded_result = array();
-
-	//$objects["http://dbpedia.org/resource/Google"] = 0;
-	//$objects["http://dbpedia.org/resource/Gmail"] = 0;
-	//sameType($objects, $r);
-	//unset($objects);
+	$relation_size = 0;
+	
+	echo "<pre>";
+	$objects["http://dbpedia.org/resource/Google"] = 0;
+	$objects["http://dbpedia.org/resource/Gmail"] = 0;
+	sameType($objects, $r);
+	unset($objects);
 
 	foreach ($arr as $distance){
 		foreach ($distance as $query){
@@ -70,17 +72,15 @@
 			$connectors = array();
 			$now = microtime(true);
             echo '<div class="container content"> <div class="columns is-multiline"> <div class="column">';
-		//	echo "<pre>";
+
 			echo "<xmp>".$query."</xmp>";
 			echo $r->executeSparqlQuery($query, "HTML");
 			$results = $r->executeSparqlQuery($query);
 			echo"<br>";
 			$exploded_result = explode("}}", $results);
-			//print_r($exploded_result);
+
 			echo"</br>";
 			echo "<br>needed ".(microtime(true)-$now)." seconds<br>";
-
-			
 
 
 			foreach($exploded_result as $result){
@@ -102,7 +102,7 @@
 				if($should_print){
 
 					if(!empty($connectors)){
-						relationSize($connectors);
+						$relation_size = relationSize($connectors);
 					}
 
 					if(!empty($regexed_objects)){
@@ -110,8 +110,6 @@
 					}
 
 					if(!empty($objects)){
-						//$objects["http://dbpedia.org/resource/Google"] = 0;
-						//$objects["http://dbpedia.org/resource/Gmail"] = 0;
 						sameType($objects, $r);
 						unset($objects);
 					}
