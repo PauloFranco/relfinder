@@ -8,12 +8,12 @@
 		}
 
 		echo "<br>Esses são todos os Objetos na relação Google ".$lista." -- Gmail:<br>";
-		foreach($regexed_objects[1] as $name){
+		echo"<br>";
+		foreach($regexed_objects[1] as $index=>$name){
 			$objects[$name] = $name;
-			
-			echo"<br>";
-			echo"<br>";
-			echo($name);
+			$index = $index +1;
+			echo($index." - ".$name);
+			echo "<br>";
 			echo "<br>";
 		}
 	}

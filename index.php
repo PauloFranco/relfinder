@@ -27,6 +27,8 @@
 	require_once('AllRelations.php');
 	require_once('AllObjects.php');
 	require_once('RelationSize.php');
+	require_once('Popularity.php');
+	require_once('FileWriter.php');
 
 
 	$r = new RelationFinder();
@@ -58,11 +60,14 @@
 	$predicates = array();
 	$exploded_result = array();
 	$relation_size = 0;
+	$totais = array();
 	
 	echo "<pre>";
 	$objects["http://dbpedia.org/resource/Google"] = 0;
 	$objects["http://dbpedia.org/resource/Gmail"] = 0;
-	sameType($objects, $r);
+	//$objects["http://dbpedia.org/resource/Google"] = 0;  4315
+	//$objects["http://dbpedia.org/resource/Gmail"] = 0;   7
+	sameType($objects,$totais, $r);
 	unset($objects);
 
 	foreach ($arr as $distance){
@@ -84,19 +89,27 @@
 
 
 			foreach($exploded_result as $result){
+
+				
 				$should_print = false;
 				if(preg_match('/"value"/',$result)){
 					$should_print = true;
 
 					preg_match('/"vars":\s\[(\S+\s?\S+)+\]/', $result, $connectors[]);
 
+					
 					if(preg_match('/"o[f|s]\w+"/',$result)){
 				 		preg_match_all('/o\S+\s{\s\S+\s\S+\s\S+\s"(\S+)"/',$result, $regexed_objects[]);
 					}
 
+					
+
 					if (preg_match('/"middle"/',$result)){
 						preg_match_all('/middle\S+\s{\s\S+\s\S+\s\S+\s"(\S+)"/',$result, $regexed_objects[]);
 					}
+
+					
+
 				}
 
 				if($should_print){
@@ -110,7 +123,7 @@
 					}
 
 					if(!empty($objects)){
-						sameType($objects, $r);
+						sameType($objects, $totais, $r);
 						unset($objects);
 					}
 				}
@@ -118,6 +131,10 @@
 			echo"</div></div><hr></div>";
 		}
 	}
+
+	echo '<pre>';
+		var_dump($totais);
+	echo '</pre>'; 
 ?>
 
 </section>
