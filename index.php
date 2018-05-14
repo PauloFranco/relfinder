@@ -63,12 +63,12 @@
 	$totais = array();
 	
 	echo "<pre>";
-	$objects["http://dbpedia.org/resource/Google"] = 0;
-	$objects["http://dbpedia.org/resource/Gmail"] = 0;
-	//$objects["http://dbpedia.org/resource/Google"] = 0;  4315
-	//$objects["http://dbpedia.org/resource/Gmail"] = 0;   7
-	sameType($objects,$totais, $r);
-	unset($objects);
+	//$objects["http://dbpedia.org/resource/Google"] = 0;
+	//$objects["http://dbpedia.org/resource/Gmail"] = 0;
+	//$objects["http://dbpedia.org/resource/Google"] = 0;  409, 4315
+	//$objects["http://dbpedia.org/resource/Gmail"] = 0;   7, 7
+	//sameType($objects,$totais, $r);
+	//unset($objects);
 
 	foreach ($arr as $distance){
 		foreach ($distance as $query){

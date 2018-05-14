@@ -38,3 +38,9 @@ WHERE {
    db:Gmail dbo:type ?type
 
 }
+
+
+
+Caracteristicas tópicas
+
+Count das classes / (comprimento + 1)
