@@ -4,7 +4,8 @@
 	$maior = 0;
 	$maiores = array();
 	$originais = array();
-
+	$classes = array();
+	$classes_count = array();
 	$indexes = "";
 
 	$vetor = array();
@@ -18,10 +19,21 @@
 		$totalrelationsobj1 = array();
 		$subjects = array();
 		$relations_obj1 = array();
+		
 		$all_relations_obj1 = allRelations($object);
 		$all_sizeone_relations_obj1 = $r->executeSparqlQuery($all_relations_obj1);
 
-		
+
+		$query_classes = classQuery($object);
+
+		$query_classes_result = $r->executeSparqlQuery($query_classes);
+
+
+		preg_match_all('/ontology\/(\S+)"/',$query_classes_result, $classes,PREG_PATTERN_ORDER);
+
+		foreach($classes[1] as $classe){
+			$classes_count[$classe] = empty($classes_count[$classe])? 1: $classes_count[$classe]++;
+		}
 
 		preg_match_all('/resource\/(\S+)"/',$all_sizeone_relations_obj1, $relations_obj1,PREG_PATTERN_ORDER);
 		$totalrelationsobj1 = $r->executeSparqlQuery(sameTypeQuery($object));
@@ -80,7 +92,7 @@
 
 	$vetor[] = $indexes;
 	
-	$totais[$indexes] = [count($objects)+1, $originais, $maiores];
+	$totais[$indexes] = [count($objects)+1, $originais, $maiores, $classes_count];
 	
 	
 	unset($objects);

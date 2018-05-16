@@ -29,6 +29,7 @@
 	require_once('RelationSize.php');
 	require_once('Popularity.php');
 	require_once('FileWriter.php');
+	require_once('ClassQuery.php');
 
 
 	$r = new RelationFinder();
@@ -70,6 +71,7 @@
 	//sameType($objects,$totais, $r);
 	//unset($objects);
 
+	
 	foreach ($arr as $distance){
 		foreach ($distance as $query){
 			$regexed_objects = array();
