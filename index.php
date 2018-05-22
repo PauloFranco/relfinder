@@ -30,6 +30,7 @@
 	require_once('Popularity.php');
 	require_once('FileWriter.php');
 	require_once('ClassQuery.php');
+	require_once('Topic.php');
 
 
 	$r = new RelationFinder();
