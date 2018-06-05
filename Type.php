@@ -34,9 +34,9 @@
 		foreach($classes[1] as $classe){
 			if(empty($classes_count[$classe])){
 				$classes_count[$classe] = array();
-				$classes_count[$classe] = [1,0];
+				$classes_count[$classe] = [1,0.0];
 			}else{
-				$classes_count[$classe] =[($classes_count[$classe][0] + 1),0];
+				$classes_count[$classe] =[($classes_count[$classe][0] + 1),0.0];
 			}
 			
 		}
@@ -45,9 +45,7 @@
 		$totalrelationsobj1 = $r->executeSparqlQuery(sameTypeQuery($object));
 		preg_match_all('/"(\S+\/\/\S+\/\S+)"/',$totalrelationsobj1, $subjects,PREG_PATTERN_ORDER);
 		$arestas_obj1 = count($relations_obj1[1]);
-		echo $object;
-		echo "<br>";
-		echo $arestas_obj1;
+		echo "entidade: ".$object;
 		echo "<br>";
 		echo "<br>";
 		echo "Lista de sujeitos do mesmo tipo do ".$object." :";
@@ -56,7 +54,7 @@
 		$relations = array();
 		$maior = $arestas_obj1;
 		$original = $arestas_obj1;
-		$originais[] = $original;
+		$originais[$object] = $original;
 		$maior_nome = $object;
 			
 		foreach ($subjects[1] as $nome){
@@ -67,19 +65,19 @@
 		    preg_match_all('/resource\/(\S+)"/',$all_sizeone_relations, $relations,PREG_PATTERN_ORDER);
 		    echo $nome;
 				echo "<br>";
-			echo count($relations[1]);
+			echo count(end($relations));
 		    echo "<br>";
-			if(count($relations[1]) > $maior){
-			    $maior = count($relations[1]);
+			if(count(end($relations)) > $maior){
+			    $maior = count(end($relations));
 			    $maior_nome = $nome;
 			}
 
-		    var_dump($relations[1]);
+		    var_dump(end($relations));
 		    echo "<br>";
 
 		}
 
-		$maiores[] = $maior;
+		$maiores[$maior_nome] = $maior;
 
 
 		if(!empty($relations)){
@@ -100,7 +98,7 @@
 
 	topicFeatures($classes_count, count($objects)+1);
 	
-	$totais[$indexes] = [count($objects)+1, $originais, $maiores, $classes_count];
+	$totais[$indexes] = ["distancia" =>count($objects)+1, "r1" => $originais, "maior" =>$maiores, "topicos" =>$classes_count];
 	
 	
 	unset($objects);

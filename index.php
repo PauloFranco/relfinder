@@ -38,7 +38,7 @@
 	$object1 = "db:Google";
 	$object2 = "db:Gmail";
 
-	$maxDistance = 5;
+	$maxDistance = 3;
 	$limit = 10;
 	$ignoredObjects=null;
 	$ignoredProperties = array(
@@ -94,6 +94,8 @@
 			foreach($exploded_result as $result){
 
 				
+
+				
 				$should_print = false;
 				if(preg_match('/"value"/',$result)){
 					$should_print = true;
@@ -101,18 +103,10 @@
 					preg_match('/"vars":\s\[(\S+\s?\S+)+\]/', $result, $connectors[]);
 
 					
-					if(preg_match('/"o[f|s]\w+"/',$result)){
-				 		preg_match_all('/o\S+\s{\s\S+\s\S+\s\S+\s"(\S+)"/',$result, $regexed_objects[]);
+					if(preg_match('/(?:"o[f|s]\w+"|middle)/',$result)){
+				 		preg_match_all('/((?:o|middle)\S+\s{\s\S+\s\S+\s\S+\s"(\S+)" )/',$result, $regexed_objects[]);
 					}
-
 					
-
-					if (preg_match('/"middle"/',$result)){
-						preg_match_all('/middle\S+\s{\s\S+\s\S+\s\S+\s"(\S+)"/',$result, $regexed_objects[]);
-					}
-
-					
-
 				}
 
 				if($should_print){
