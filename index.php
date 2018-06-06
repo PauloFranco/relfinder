@@ -132,6 +132,8 @@
 	echo '<pre>';
 		var_dump($totais);
 	echo '</pre>'; 
+
+	parseFile($totais);
 ?>
 
 </section>

@@ -10,13 +10,13 @@ from pprint import pprint
 
 feature_dict = {i:label for i,label in zip(
                 range(2),
-                  ('BUSAGE',
-                  'DAYSDLQ',
+                  ('DISTANCIA',
+                  'POPULARIDADE',
                    ))}
 
 
 df = pd.io.parsers.read_csv(
-    filepath_or_buffer='dataset.txt',
+    filepath_or_buffer='teste.txt',
     header=None,
     sep=',',
     )
@@ -30,12 +30,12 @@ positivos = []
 negativos = []
 
 
-X = df[['BUSAGE','DAYSDLQ']].values
+X = df[['DISTANCIA','POPULARIDADE']].values
 y = df['class label'].values
 
 
 for i, classe in enumerate(y):
-    if classe == "N":
+    if classe == "0":
         negativos.append(X[i])
     else:
         positivos.append(X[i])
