@@ -35,7 +35,7 @@ y = df['class label'].values
 
 
 for i, classe in enumerate(y):
-    if classe == "0":
+    if classe == 0:
         negativos.append(X[i])
     else:
         positivos.append(X[i])
