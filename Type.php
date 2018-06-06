@@ -97,8 +97,10 @@
 	$vetor[] = $indexes;
 
 	topicFeatures($classes_count, count($objects)+1);
+
+	$popularidade = popularity($originais, $maiores, count($objects)+2);
 	
-	$totais[$indexes] = ["distancia" =>count($objects)+1, "r1" => $originais, "maior" =>$maiores, "topicos" =>$classes_count];
+	$totais[$indexes] = ["distancia" =>count($objects)+1, "popularidade" => $popularidade, "r1" => $originais, "maior" =>$maiores, "topicos" =>$classes_count];
 	
 	
 	unset($objects);
