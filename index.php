@@ -134,6 +134,16 @@
 	echo '</pre>'; 
 
 	parseFile($totais);
+
+	$output = '';
+
+	exec('python lda.py', $output);
+
+
+	echo '<br>';
+	echo '<pre>';
+		var_dump($output);
+	echo '</pre>'
 ?>
 
 </section>
