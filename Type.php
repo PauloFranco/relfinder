@@ -1,5 +1,5 @@
 <?php
- function sameType(&$objects, &$totais, $r){
+ function sameType(&$objects, &$totais, &$all_classes, $r){
 	$arestas_obj1 = 0;
 	$maior = 0;
 	$maiores = array();
@@ -31,7 +31,12 @@
 
 		preg_match_all('/ontology\/(\S+)"/',$query_classes_result, $classes,PREG_PATTERN_ORDER);
 
+		
+
 		foreach($classes[1] as $classe){
+			if(empty($all_classes[$classe])){
+				$all_classes[$classe] = "";
+			}
 			if(empty($classes_count[$classe])){
 				$classes_count[$classe] = array();
 				$classes_count[$classe] = [1,0.0];

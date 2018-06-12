@@ -31,6 +31,7 @@
 	require_once('FileWriter.php');
 	require_once('ClassQuery.php');
 	require_once('Topic.php');
+	require_once('UpdateTopic.php');
 
 
 	$r = new RelationFinder();
@@ -63,6 +64,7 @@
 	$exploded_result = array();
 	$relation_size = 0;
 	$totais = array();
+	$classes = array();
 	
 	echo "<pre>";
 	//$objects["http://dbpedia.org/resource/Google"] = 0;
@@ -120,7 +122,7 @@
 					}
 
 					if(!empty($objects)){
-						sameType($objects, $totais, $r);
+						sameType($objects, $totais, $classes, $r);
 						unset($objects);
 					}
 				}
@@ -128,6 +130,9 @@
 			echo"</div></div><hr></div>";
 		}
 	}
+
+	ksort($classes);
+	updateTopic($classes, $totais);
 
 	echo '<pre>';
 		var_dump($totais);
