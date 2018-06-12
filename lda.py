@@ -8,18 +8,24 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 from pprint import pprint
 
 
+
+lf = pd.io.parsers.read_csv(
+    filepath_or_buffer='topics.txt',
+    header=None,
+    sep=',',
+)
+
 feature_dict = {i:label for i,label in zip(
                 range(2),
                   ('DISTANCIA',
                   'POPULARIDADE',
                    ))}
 
-
 df = pd.io.parsers.read_csv(
     filepath_or_buffer='teste.txt',
     header=None,
     sep=',',
-    )
+)
 
 
 df.columns = [l for i,l in sorted(feature_dict.items())] + ['class label']
