@@ -1,1 +1,1 @@
-Agent,Company,Language,Organisation,Person,ProgrammingLanguage,Scientist,Ship,Software,TelevisionShow,Website,Work
+Character,Location,Person,Publication,Real_Occupation

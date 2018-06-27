@@ -36,8 +36,8 @@
 
 	$r = new RelationFinder();
 
-	$object1 = "db:Google";
-	$object2 = "db:Gmail";
+	$object1 = "db:Batman";
+	$object2 = "db:Superman";
 
 	$maxDistance = 3;
 	$limit = 10;
@@ -65,6 +65,29 @@
 	$relation_size = 0;
 	$totais = array();
 	$classes = array();
+	$topics = [	"FictionalCharacter" => "Character",
+				"ComicsCharacter" => "Character",
+				"Agent" => "Character",
+				"WrittenWork" => "Real_Occupation",
+				"Work" => "Real_Occupation",
+				"SportsTeam" => "Character",
+				"Comic" => "Publication",
+				"Book" => "Publication",
+				"SportsEvent" => "Publication",
+				"TelevisionShow" => "Publication",
+				"ComicsCreator" => "Person",
+				"Artist" => "Person",
+				"Newspaper" => "Location",
+				"City" => "Location",
+				"Film" => "Publication",
+				"Person" => "Person",
+				"Organisation" => "Real_Location",
+				"Publisher" => "Real_Location",
+				"Company" => "Real_Location",
+				"City" => "Location",
+				"TelevisionEpisode" => "Publication"
+			];
+
 	
 	echo "<pre>";
 	//$objects["http://dbpedia.org/resource/Google"] = 0;
@@ -122,7 +145,7 @@
 					}
 
 					if(!empty($objects)){
-						sameType($objects, $totais, $classes, $r);
+						sameType($objects, $totais, $classes, $topics, $r);
 						unset($objects);
 					}
 				}
@@ -130,6 +153,15 @@
 			echo"</div></div><hr></div>";
 		}
 	}
+
+	echo '<pre>';
+		var_dump($totais);
+	echo '</pre>'; 
+
+	echo '<pre>';
+		var_dump($classes);
+	echo '</pre>'; 
+
 
 	ksort($classes);
 	updateTopic($classes, $totais);
@@ -142,12 +174,12 @@
 
 	$output = '';
 
-	//exec('python lda.py', $output);
+	exec('python lda.py', $output);
 
 
 	echo '<br>';
 	echo '<pre>';
-		//var_dump($output);
+		var_dump($output);
 	echo '</pre>'
 ?>
 

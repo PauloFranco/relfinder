@@ -1,5 +1,5 @@
 <?php
- function sameType(&$objects, &$totais, &$all_classes, $r){
+ function sameType(&$objects, &$totais, &$all_classes, $topics, $r){
 	$arestas_obj1 = 0;
 	$maior = 0;
 	$maiores = array();
@@ -34,14 +34,14 @@
 		
 
 		foreach($classes[1] as $classe){
-			if(empty($all_classes[$classe])){
-				$all_classes[$classe] = "";
+			if(empty($all_classes[$topics[$classe]])){
+				$all_classes[$topics[$classe]] = "";
 			}
-			if(empty($classes_count[$classe])){
-				$classes_count[$classe] = array();
-				$classes_count[$classe] = [1,0.0];
+			if(empty($classes_count[$topics[$classe]])){
+				$classes_count[$topics[$classe]] = array();
+				$classes_count[$topics[$classe]] = [1,0.0];
 			}else{
-				$classes_count[$classe] =[($classes_count[$classe][0] + 1),0.0];
+				$classes_count[$topics[$classe]] =[($classes_count[$topics[$classe]][0] + 1),0.0];
 			}
 			
 		}
