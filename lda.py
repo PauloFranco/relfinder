@@ -97,7 +97,7 @@ w = np.matmul(inv_cov, mean_total)
 w2 = np.matmul(inv_cov2, mean_total)
 
 print "\n\n"
-print('w1: %s' %w)
+print('wchen: %s' %w)
 print "\n\n"
-print('w2: %s' %w2)
+print('wvideo: %s' %w2)
 
