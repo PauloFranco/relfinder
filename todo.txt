@@ -1,0 +1,5 @@
+TODO:
+
+-organizar em uma única tabela
+-adicionar botoões gostei/não gostei
+-algoritmo rankbox

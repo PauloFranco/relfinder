@@ -65,6 +65,7 @@
 	$relation_size = 0;
 	$totais = array();
 	$classes = array();
+	$search_results = array();
 	$topics = [	"FictionalCharacter" => "Character",
 				"ComicsCharacter" => "Character",
 				"Agent" => "Character",
@@ -89,7 +90,7 @@
 			];
 
 	
-	echo "<pre>";
+	//echo "<pre>";
 	//$objects["http://dbpedia.org/resource/Google"] = 0;
 	//$objects["http://dbpedia.org/resource/Gmail"] = 0;
 	//$objects["http://dbpedia.org/resource/Google"] = 0;  409, 4315
@@ -104,16 +105,21 @@
 			$objects = array();
 			$connectors = array();
 			$now = microtime(true);
-            echo '<div class="container content"> <div class="columns is-multiline"> <div class="column">';
+            
 
-			echo "<xmp>".$query."</xmp>";
-			echo $r->executeSparqlQuery($query, "HTML");
+			//echo "<xmp>".$query."</xmp>";
+			$print = $search_results[]= $r->executeSparqlQuery($query, "HTML");
 			$results = $r->executeSparqlQuery($query);
-			echo"<br>";
+			echo(htmlspecialchars($print));
+			echo "<br>";
+			echo "<br>";
+			//echo(htmlspecialchars(str_replace("</td>","</td><td><a>Gostei</a></td><td><a>Não gostei</a></td>",$search_results[0])));
+			//die();
+			//echo"<br>";
 			$exploded_result = explode("}}", $results);
 
-			echo"</br>";
-			echo "<br>needed ".(microtime(true)-$now)." seconds<br>";
+			//echo"</br>";
+			//echo "<br>needed ".(microtime(true)-$now)." seconds<br>";
 
 
 			foreach($exploded_result as $result){
@@ -150,32 +156,40 @@
 					}
 				}
 			}
-			echo"</div></div><hr></div>";
+			//echo"</div></div><hr></div>";
 		}
 	}
 
-	echo '<pre>';
-		var_dump($totais);
-	echo '</pre>'; 
+	//echo '<pre>';
+		//var_dump($totais);
+	//echo '</pre>'; 
 
-	echo '<pre>';
-		var_dump($classes);
-	echo '</pre>'; 
+	//echo '<pre>';
+		//var_dump($classes);
+	//echo '</pre>'; 
 
 
 	ksort($classes);
 	updateTopic($classes, $totais);
 
-	echo '<pre>';
-		var_dump($totais);
-	echo '</pre>'; 
+	//echo '<pre>';
+		//var_dump($totais);
+	//echo '</pre>'; 
 
 	parseFile($totais);
 
 	$output = '';
 
-	exec('python lda.py', $output);
+	echo '<div class="container content"> <div class="columns is-multiline"> <div class="column">';
+	foreach( $search_results as $linha){
+		$print = ((str_replace("<td><a","<td><a href='http://dbpedia.org/resource/Batman'>http://dbpedia.org/resource/Batman</a></td><td><a",$linha)));
 
+		$print = (str_replace("</td>","</td><td><a>Gostei</a></td><td><a>Não gostei</a></td>",$print));
+
+		echo $print;
+	}
+
+	exec('python lda.py', $output);
 
 	echo '<br>';
 	echo '<pre>';

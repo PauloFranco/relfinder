@@ -70,7 +70,7 @@ label_dict = {1: 'Negativo', 2: 'Positivo'}
 mean_vectors = []
 for cl in range(1,3):
     mean_vectors.append(np.mean(X[y==cl], axis=0))
-    print('Mean Vector class %s: %s\n' %(cl, mean_vectors[cl-1]))
+    #print('Mean Vector class %s: %s\n' %(cl, mean_vectors[cl-1]))
 
 
 cov_pos = np.cov(positivos, None, False)
@@ -96,8 +96,9 @@ mean_total = mean_neg - mean_pos
 w = np.matmul(inv_cov, mean_total)
 w2 = np.matmul(inv_cov2, mean_total)
 
-print "\n\n"
-print('wchen: %s' %w)
-print "\n\n"
-print('wvideo: %s' %w2)
+#print "\n\n"
+#print('wchen: %s' %w)
+#print "\n\n"
+#print('wvideo: %s' %w2)
 
+print('%s' %w)

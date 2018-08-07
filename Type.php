@@ -50,12 +50,12 @@
 		$totalrelationsobj1 = $r->executeSparqlQuery(sameTypeQuery($object));
 		preg_match_all('/"(\S+\/\/\S+\/\S+)"/',$totalrelationsobj1, $subjects,PREG_PATTERN_ORDER);
 		$arestas_obj1 = count($relations_obj1[1]);
-		echo "entidade: ".$object;
-		echo "<br>";
-		echo "<br>";
-		echo "Lista de sujeitos do mesmo tipo do ".$object." :";
-		echo "<br>";
-		echo "<br>";
+		//echo "entidade: ".$object;
+		//echo "<br>";
+		//echo "<br>";
+		//echo "Lista de sujeitos do mesmo tipo do ".$object." :";
+		//echo "<br>";
+		//echo "<br>";
 		$relations = array();
 		$maior = $arestas_obj1;
 		$original = $arestas_obj1;
@@ -68,17 +68,17 @@
 		    $all_relations_nome  = allRelations($nome);
 		    $all_sizeone_relations = $r->executeSparqlQuery($all_relations_nome);
 		    preg_match_all('/resource\/(\S+)"/',$all_sizeone_relations, $relations,PREG_PATTERN_ORDER);
-		    echo $nome;
-				echo "<br>";
-			echo count(end($relations));
-		    echo "<br>";
+		    //echo $nome;
+				//echo "<br>";
+			//echo count(end($relations));
+		    //echo "<br>";
 			if(count(end($relations)) > $maior){
 			    $maior = count(end($relations));
 			    $maior_nome = $nome;
 			}
 
-		    var_dump(end($relations));
-		    echo "<br>";
+		    //var_dump(end($relations));
+		    //echo "<br>";
 
 		}
 
@@ -87,16 +87,16 @@
 
 		if(!empty($relations)){
 			
-			echo "maior: ".$maior_nome." com ".$maior." relações";
-			echo "<br>";
+			//echo "maior: ".$maior_nome." com ".$maior." relações";
+			//echo "<br>";
 		}
 		else{
-			echo "Não foram encontrados objetos do mesmo tipo";
-			echo "<br>";
+			//echo "Não foram encontrados objetos do mesmo tipo";
+			//echo "<br>";
 		}
-		echo "<br>";
+		//echo "<br>";
 	}
-	echo "</pre>";
+	//echo "</pre>";
 
 
 	$vetor[] = $indexes;
