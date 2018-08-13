@@ -32,6 +32,8 @@
 	require_once('ClassQuery.php');
 	require_once('Topic.php');
 	require_once('UpdateTopic.php');
+	require_once('UpdateWeights.php');
+	require_once('UpdateScores.php');
 
 
 	$r = new RelationFinder();
@@ -110,7 +112,7 @@
 			//echo "<xmp>".$query."</xmp>";
 			$print = $search_results[]= $r->executeSparqlQuery($query, "HTML");
 			$results = $r->executeSparqlQuery($query);
-			echo(htmlspecialchars($print));
+			//echo(htmlspecialchars($print));
 			echo "<br>";
 			echo "<br>";
 			//echo(htmlspecialchars(str_replace("</td>","</td><td><a>Gostei</a></td><td><a>Não gostei</a></td>",$search_results[0])));
@@ -182,19 +184,30 @@
 
 	echo '<div class="container content"> <div class="columns is-multiline"> <div class="column">';
 	foreach( $search_results as $linha){
-		$print = ((str_replace("<td><a","<td><a href='http://dbpedia.org/resource/Batman'>http://dbpedia.org/resource/Batman</a></td><td><a",$linha)));
+		//$print = ((str_replace("<td><a","<td><a href='http://dbpedia.org/resource/Batman'>http://dbpedia.org/resource/Batman</a></td><td><a",$linha)));
 
-		$print = (str_replace("</td>","</td><td><a>Gostei</a></td><td><a>Não gostei</a></td>",$print));
+		//$print = (str_replace("</td>","</td><td><a>Gostei</a></td><td><a>Não gostei</a></td>",$print));
 
-		echo $print;
+		echo $linha;
 	}
 
 	exec('python lda.py', $output);
 
+	$output = updateWeights($output);
+
+	updateScores($totais, $output);
+
+
+
 	echo '<br>';
 	echo '<pre>';
 		var_dump($output);
-	echo '</pre>'
+	echo '</pre>';
+	echo '<br>';
+	echo '<pre>';
+		var_dump($totais);
+	echo '</pre>';
+	
 ?>
 
 </section>

@@ -1,8 +1,6 @@
 <?php
-   
-
-
     function parseFile($dados){
+
         $file = fopen('teste.txt','w');
 
         foreach($dados as $dado){
@@ -10,7 +8,7 @@
             foreach($dado["topicos"] as $topico){
                 fwrite($file, $topico[1].",");
             }
-            fwrite($file, $dado["popularidade"].",".rand(0,1)."\n");
+            fwrite($file, $dado["popularidade"].",".$dado["like"]."\n");
         }
 
         fclose($file);

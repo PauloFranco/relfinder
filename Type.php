@@ -105,7 +105,7 @@
 
 	$popularidade = popularity($originais, $maiores, count($objects)+2);
 	
-	$totais[$indexes] = ["distancia" =>count($objects)+1, "popularidade" => $popularidade, "r1" => $originais, "maior" =>$maiores, "topicos" =>$classes_count];
+	$totais[$indexes] = ["distancia" =>count($objects)+1, "popularidade" => $popularidade, "r1" => $originais, "maior" =>$maiores, "topicos" =>$classes_count, "like" => rand(0,1), "score" => 0];
 	
 	
 	unset($objects);

@@ -23,7 +23,7 @@ feature_dict = {i:label for i,label in zip(
                 )}
 
 df = pd.io.parsers.read_csv(
-    filepath_or_buffer='teste.txt',
+    filepath_or_buffer='teste2.txt',
     header=None,
     sep=',',
 )
